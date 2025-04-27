@@ -74,6 +74,18 @@ Mocha provides **hooks** to manage setup and teardown in your tests:
 
 ---
 
+## 7. Sinon: Spy, Stub, and Mock Comparison
+
+In testing with Sinon, there are three main tools: **spies**, **stubs**, and **mocks**. Each one serves a different purpose but builds on the functionality of the previous.
+
+| Feature             | **Spy**                                | **Stub**                                 | **Mock**                                          |
+| :------------------ | :------------------------------------- | :--------------------------------------- | :------------------------------------------------ |
+| **Track Calls**     | Yes (e.g., `calledOnce`, `calledWith`) | Yes (e.g., `calledOnce`, `calledWith`)   | Yes (e.g., `calledOnce`, `calledWith`)            |
+| **Custom Behavior** | No                                     | Yes (e.g., `.returns()`, `.callsFake()`) | Yes (e.g., `.returns()`, `.callsFake()`)          |
+| **Assertions**      | No                                     | No                                       | Yes (e.g., `expects()`, `verify()`)               |
+| **Used for**        | Monitoring function calls              | Replacing function behavior              | Ensuring function calls and behaviors are correct |
+| **Examples**        | `sinon.spy(fn)`                        | `sinon.stub(fn).returns(42)`             | `sinon.mock(obj).expects('fn').once()`            |
+
 # ✅ Conclusion
 
 - **Mocha** runs the tests.

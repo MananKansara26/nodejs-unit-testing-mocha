@@ -12,7 +12,7 @@ describe("API testing...", () => {
 
   beforeEach(() => {
     sinon.stub(User, "create").callsFake((query) => {
-      return Promise.resolve({ _id: "680cae6848fa6bf60dc328f1", ...query });
+      return Promise.resolve({ _id: "680cae2848fa6bf60dc328f2", ...query });
     });
 
     sinon.stub(User, "find").resolves([
@@ -24,6 +24,7 @@ describe("API testing...", () => {
       },
     ]);
 
+    // If you use callsFake(), you control the logic. If you use resolves(), you fix the return value.
     sinon.stub(User, "findOne").callsFake((query, selection) => {
       if (query.username === "Manan" && query.password === "manan") {
         if (selection?.password === 0) {
@@ -70,6 +71,11 @@ describe("API testing...", () => {
       const response = await request(app)
         .post("/register")
         .send({ username: "Manan", password: "manan" });
+
+      expect(
+        User.create.calledWithExactly({ username: "Manan", password: "manan" })
+      ).to.be.true;
+      expect(User.create.calledOnce).to.be.true;
 
       expect(response.status).to.equal(201);
       expect(response.body).to.be.an("object");
